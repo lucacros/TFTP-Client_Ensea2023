@@ -27,6 +27,7 @@ memset(&hints, 0, sizeof(struct addrinfo));
 hints.ai_socktype = SOCK_DGRAM; // because it's UDP
 hints.ai_family=AF_INET; //IPV4
 struct addrinfo *res;
+
 //replace node by 1069 and service by NULL
 const char *node = "1069";  
 const char *service = NULL; 
@@ -51,11 +52,14 @@ if (status != 0) {
         return 1;
     }
 
+//Reserve a connection socket to the server 
 
-// res contain athe informations concerning adresses
-//we need to parcour res to obtain the informations
-int sock =socket( res->ai_family, 
-res-> ai_socktype, res -> ai_protocol);
+//create and initialise the socket
+int sock1 = socket(res->ai_family,res->ai_socktype, res->ai_protocol);
+if (sock1 == -1) {
+    perror("Error during socket creation");
+    exit(EXIT_FAILURE);
+    }
 
 
 }
